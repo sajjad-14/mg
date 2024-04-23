@@ -24,7 +24,9 @@ class Customer extends Thread {
     public void run() {
         inventory.updateStock(purchaseAmount);
     }
+}
 
+public class Main {
     public static void main(String[] args) {
         Inventory inventory = new Inventory();
         Customer customer1 = new Customer(inventory, 10);
