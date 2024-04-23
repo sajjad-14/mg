@@ -1,12 +1,13 @@
 class BankAccount {
     private int balance = 1000;
-
+ 
     public synchronized void withdraw(int amount) {
         if (balance >= amount) {
             System.out.println(Thread.currentThread().getName() + " is about to withdraw");
             try {
                 Thread.sleep(100);
             } catch (InterruptedException e) {
+                e.printStackTrace(); // It's generally a good practice to handle or log InterruptedExceptions properly
             }
             balance -= amount;
             System.out.println(Thread.currentThread().getName() + " has completed withdrawal");
@@ -15,20 +16,22 @@ class BankAccount {
         }
     }
 }
-
+ 
 class ATM extends Thread {
     private BankAccount account;
-
+ 
     public ATM(BankAccount account) {
         this.account = account;
     }
-
+ 
     public void run() {
         for (int i = 0; i < 5; i++) {
             account.withdraw(200);
         }
     }
-
+}
+ 
+public class Main {
     public static void main(String[] args) {
         BankAccount account = new BankAccount();
         ATM t1 = new ATM(account);
