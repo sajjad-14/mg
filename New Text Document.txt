@@ -1,0 +1,14 @@
+%{ 
+int v=0, c=0; 
+%}
+%%
+[aeiouAEIOU] { v++; }
+[bcdfghjklmnpqrstvwxyzBCDFGHJKLMNPQRSTVWXYZ] { c++; }
+%%
+int main() {
+  yyin = fopen("abc.txt", "r");
+  yylex();
+  printf("Vowels = %d, Consonants = %d\n", v, c);
+  fclose(yyin);
+  return 0;
+}

@@ -1,0 +1,26 @@
+%{
+#include <stdio.h>
+
+int without_arg = 0;
+int with_one_arg = 0;
+int with_n_args = 0;
+%}
+
+%%
+[a-zA-Z_][a-zA-Z0-9_]*"()"              { without_arg++; printf("Function without argument: %s\n", yytext); }
+[a-zA-Z_][a-zA-Z0-9_]*"("[^,]+")"       { with_one_arg++; printf("Function with one argument: %s\n", yytext); }
+[a-zA-Z_][a-zA-Z0-9_]*"("[^)]*","[^)]*")" { with_n_args++; printf("Function with multiple arguments: %s\n", yytext); }
+
+%%
+
+int main() {
+    printf("Enter function definitions: \n");
+    yylex();
+    
+    printf("\nSummary:\n");
+    printf("Functions without argument = %d\n", without_arg);
+    printf("Functions with one argument = %d\n", with_one_arg);
+    printf("Functions with multiple arguments = %d\n", with_n_args);
+
+    return 0;
+}

@@ -1,0 +1,17 @@
+%{
+#include <stdio.h>
+%}
+
+%%
+// Regex for valid identifiers
+[a-zA-Z_][a-zA-Z0-9_]*   { printf("Valid Identifier: %s\n", yytext); }
+
+// Regex for invalid identifiers
+[^a-zA-Z_]               { printf("Invalid Identifier: %s\n", yytext); }
+.                         ;
+%%
+
+int main() {
+    yylex();
+    return 0;
+}

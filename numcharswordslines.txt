@@ -1,0 +1,21 @@
+%{
+#include <stdio.h>
+int characters = 0, words = 0, lines = 0;
+%}
+
+%%
+\n        { lines++; characters++; }            // Count new lines
+[^ \t\n]+ { words++; characters += yyleng; }    // Count words and add length to character count
+.         { characters++; }                    // Count any remaining characters
+
+%%
+
+int main() {
+    yyin = fopen("input.txt", "r");   // Open the file for reading
+    yylex();
+    printf("Characters: %d\n", characters);
+    printf("Words: %d\n", words);
+    printf("Lines: %d\n", lines);
+    fclose(yyin);
+    return 0;
+}

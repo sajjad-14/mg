@@ -1,0 +1,13 @@
+%{ 
+#include<stdio.h> 
+int c=0, m=0; 
+%}
+%%
+"//"[^\n]* { c++; printf("Single line comment\n"); }
+"/*"[^*]*"*"+[^/]*"*/" { m++; printf("Multiline comment\n"); }
+%%
+int main() {
+  yylex();
+  printf("Single line comments = %d, Multiline comments = %d\n", c, m);
+  return 0;
+}
